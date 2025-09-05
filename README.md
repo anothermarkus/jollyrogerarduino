@@ -14,6 +14,7 @@ The Arduino sketch smoothly animates the jaw across a calibrated range of **0° 
 - DF1201S MP3 playback integration (UART)  
 - Automatic sync offset (~150 ms) so the jaw starts moving when the sound starts  
 - Simple to extend for new audio files or phrases  
+- Adding a new feature to sing the Yo Ho Pirate Song
 
 ---
 
