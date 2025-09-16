@@ -45,6 +45,12 @@ const int drinkDelays[]    = { 230, 180, 170, 250, 200, 280, 290 };
 const int kidnapMovements[] = { JAW_3, JAW_2, JAW_3, JAW_2, JAW_3, JAW_2, JAW_2, JAW_3, JAW_2, JAW_3, JAW_OPEN };
 const int kidnapDelays[]    = { 160, 190, 190, 160, 200, 180, 160, 200, 160, 250, 250 };
 
+// Phrase 5: "We extort and pilfer, we filch and sack"
+const int extortMovements[] = { JAW_3, JAW_3,JAW_2, JAW_2, JAW_3, JAW_OPEN, JAW_2, JAW_4,JAW_2, JAW_OPEN };
+const int extortDelays[] = { 180, 260, 200, 170, 260, 200, 180, 270,170, 350 };
+
+
+
 // -------------------- Movement helpers --------------------
 void moveTo(int target, int duration_ms = 120) {
   int current = mouth.read();
@@ -168,7 +174,9 @@ void loop() {
   playPhrase(drinkMovements,   drinkDelays,   sizeof(drinkMovements)/sizeof(int));
   delay(750);
   playPhrase(yohoMovements,    yoHodelays,    sizeof(yohoMovements)/sizeof(int));
-
+  delay(250);
+  playPhrase(extortMovements,    extortDelays,    sizeof(extortMovements)/sizeof(int));
+  
   mouth.write(JAW_CLOSED);
   DF1201S.pause();
   delay(10000);
