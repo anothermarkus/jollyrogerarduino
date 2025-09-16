@@ -300,6 +300,16 @@ void loop() {
     moveSyllableBounce(drinkMovements[i], drinkDelays[i], nextIsFullOpen, holdOpenUntilEnd);
   }
 
+  delay(750);
+
+  // Phrase 6: ""Yo ho, yo ho, a pirate's life for me"
+  for (int i = 0; i < N1; ++i) {
+    bool nextIsFullOpen = (i + 1 < N1) && (yohoMovements[i + 1] == JAW_OPEN);
+    bool holdOpenUntilEnd = (i == N1 - 1); // hold last "me" until end
+    moveSyllableBounce(yohoMovements[i], yoHodelays[i], nextIsFullOpen, holdOpenUntilEnd);
+  }
+
+
 
   // close jaw & stop audio, mark as played
   mouth.write(JAW_CLOSED);
