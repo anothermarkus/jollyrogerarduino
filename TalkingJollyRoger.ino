@@ -31,7 +31,7 @@ const int JAW_CLOSED = 45;
 // -------------------- Phrase arrays --------------------
 // Phrase 1: "Yo ho, yo ho, a pirate's life for me"
 const int yohoMovements[] = { JAW_OPEN, JAW_OPEN, JAW_OPEN, JAW_OPEN, JAW_4, JAW_3, JAW_3, JAW_3, JAW_3, JAW_OPEN };
-const int yoHodelays[]    = { 450, 450, 450, 450, 350, 350, 250, 350, 250, 550 };
+const int yoHoDelays[]    = { 450, 450, 450, 450, 350, 350, 250, 350, 250, 550 };
 
 // Phrase 2: "We pillage plunder, we rifle and loot"
 const int pillageMovements[] = { JAW_4, JAW_3, JAW_OPEN, JAW_3, JAW_OPEN, JAW_4, JAW_3, JAW_OPEN, JAW_2, JAW_OPEN };
@@ -47,7 +47,21 @@ const int kidnapDelays[]    = { 160, 190, 190, 160, 200, 180, 160, 200, 160, 250
 
 // Phrase 5: "We extort and pilfer, we filch and sack"
 const int extortMovements[] = { JAW_3, JAW_3,JAW_2, JAW_2, JAW_3, JAW_OPEN, JAW_2, JAW_4,JAW_2, JAW_OPEN };
-const int extortDelays[] = { 180, 260, 200, 170, 260, 200, 180, 270,170, 350 };
+const int extortDelays[] = { 180, 260, 200, 170, 260, 200, 180, 270, 170, 150 };
+
+// Phrase 6: "Maraud and embezzle and even highjack"
+const int maraudMovements[] = { JAW_OPEN, JAW_2, JAW_2, JAW_OPEN, JAW_3, JAW_2, JAW_2, JAW_OPEN, JAW_3, JAW_OPEN, JAW_2 };  
+const int maraudDelays[]    = { 178, 178, 154, 178, 178, 166, 154, 178, 178, 209, 246 };
+
+// Phrase 7: "We kindle and char and enflame and ignite"
+const int kindleMovements[] = {JAW_3, JAW_2, JAW_3, JAW_2, JAW_OPEN, JAW_2, JAW_OPEN, JAW_3, JAW_2, JAW_2, JAW_OPEN, JAW_3};  
+const int kindleDelays[]    = {181, 181, 158, 158, 203, 158, 181, 181, 169, 158, 214, 259};
+
+// Phrase 8: "We burn up the city, we're really a fright"
+const int burnMovements[] = { JAW_3, JAW_2, JAW_OPEN, JAW_3, JAW_2, JAW_OPEN, JAW_3, JAW_2, JAW_OPEN }; 
+const int burnDelays[] = {206, 194, 218, 206, 194, 242, 206, 218, 315};
+
+
 
 
 
@@ -163,7 +177,7 @@ void setup() {
 void loop() {
   DF1201S.setPlayTime(0);
 
-  playPhrase(yohoMovements,    yoHodelays,    sizeof(yohoMovements)/sizeof(int));
+  playPhrase(yohoMovements,    yoHoDelays,    sizeof(yohoMovements)/sizeof(int));
   delay(250);
   playPhrase(pillageMovements, pillageDelays, sizeof(pillageMovements)/sizeof(int));
   delay(250);
@@ -173,10 +187,26 @@ void loop() {
   delay(250);
   playPhrase(drinkMovements,   drinkDelays,   sizeof(drinkMovements)/sizeof(int));
   delay(750);
-  playPhrase(yohoMovements,    yoHodelays,    sizeof(yohoMovements)/sizeof(int));
+  playPhrase(yohoMovements,    yoHoDelays,    sizeof(yohoMovements)/sizeof(int));
   delay(250);
   playPhrase(extortMovements,    extortDelays,    sizeof(extortMovements)/sizeof(int));
-  
+  delay(50);
+  playPhrase(drinkMovements,   drinkDelays,   sizeof(drinkMovements)/sizeof(int));
+  delay(600);
+  playPhrase(maraudMovements,   maraudDelays,   sizeof(maraudMovements)/sizeof(int));
+  delay(100);
+  playPhrase(drinkMovements, drinkDelays, sizeof(drinkMovements)/sizeof(int));
+  delay(750);
+  playPhrase(yohoMovements, yoHoDelays, sizeof(yohoMovements)/sizeof(int));
+  delay(250);
+  playPhrase(kindleMovements, kindleDelays, sizeof(kindleMovements)/sizeof(int));
+  delay(150);
+  playPhrase(drinkMovements, drinkDelays, sizeof(drinkMovements)/sizeof(int));
+  delay(350);
+  playPhrase(burnMovements, burnDelays, sizeof(burnMovements)/sizeof(int));
+  delay(150);
+  playPhrase(drinkMovements, drinkDelays, sizeof(drinkMovements)/sizeof(int));
+
   mouth.write(JAW_CLOSED);
   DF1201S.pause();
   delay(10000);
