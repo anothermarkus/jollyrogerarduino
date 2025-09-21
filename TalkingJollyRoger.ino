@@ -19,6 +19,10 @@ DFRobot_DF1201S DF1201S;
 
 Servo mouth;
 const int servoPin = 9;
+const int triggerPin = 10;
+const int echoPin = 13;
+const int LEDPin = 8;
+
 
 // Jaw constants (flipped servo: smaller = more open)
 const int JAW_OPEN   = 0;
@@ -170,16 +174,22 @@ void playPhrase(const int *movements, const int *delays, int count, bool finalHo
 
 // -------------------- Setup & loop --------------------
 void setup() {
+
+
   mouth.attach(servoPin);
   mouth.write(JAW_CLOSED);
   delay(500);
 
   Serial.begin(115200);
-#if (defined ESP32)
+
+  pinMode(triggerPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+
+  #if (defined ESP32)
   DF1201SSerial.begin(115200, SERIAL_8N1, /*rx=*/D3, /*tx=*/D2);
-#else
+  #else
   DF1201SSerial.begin(115200);
-#endif
+  #endif
   while (!DF1201S.begin(DF1201SSerial)) {
     Serial.println("Init failed, please check the wire connection!");
     delay(1000);
@@ -269,6 +279,28 @@ void playYoHoSong(){
 }
 
 void loop() {
-  playYoHoSong();
-  delay(10000);
+  //playYoHoSong();
+
+  digitalWrite(triggerPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(triggerPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(triggerPin, LOW);
+
+  float duration, distance;
+
+  duration = pulseIn(echoPin, HIGH);
+
+  distance = ( duration /2 ) * 0.0343; // speed of sound constant
+
+  if ( distance <= 100 && distance >= 2){
+    // something is here
+    digitalWrite(LEDPin, HIGH); // LED to indicate, in range
+    playYoHoSong();
+    delay(10000); 
+    digitalWrite(LEDPin, LOW);
+  }
+  
+   delay(1000); // loop agressively
+  
 }
