@@ -195,7 +195,9 @@ void setup() {
     delay(1000);
   }
 
-  DF1201S.setVol(12);
+  DF1201S.disableAMP();
+
+  DF1201S.setVol(50);
   DF1201S.switchFunction(DF1201S.MUSIC);
 }
 
@@ -303,4 +305,4 @@ void loop() {
   
    delay(1000); // loop agressively
   
-}
+} 
