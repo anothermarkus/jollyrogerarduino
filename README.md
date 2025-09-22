@@ -19,37 +19,67 @@ The Arduino sketch smoothly animates the jaw across a calibrated range of **0° 
 ---
 
 ## 🛠 Hardware Required
-- **Arduino UNO / Nano / Leonardo** (or compatible board)  
-- **DFRobot DF1201S** MP3 player module  
-- **Micro SD card** with `DeadMenTellNoTales.mp3` (or your own file)  
-- **Servo motor** (standard SG90 or MG90S works, range calibrated 0–45°)  
-- **External 5–6V power supply** for servo (recommended, not from Arduino 5V pin)  
-- Jumper wires and breadboard  
+- **Arduino Uno (or compatible)**
+- **DFRobot DFPlayer Pro (DF1201S)**
+- **Servo motor (mouth/jaw)**
+- **HC-SR04 Ultrasonic sensor**
+- **LED (with resistor ~220Ω)**
+- **Aux output (3.5mm jack for DFPlayer PRO)**
+- **Wires, breadboard, or perfboard**
 
 ---
 
-## 🔌 Wiring
+## Connections
 
-### DF1201S → Arduino
-| DF1201S Pin | Arduino UNO Pin | Notes |
-|-------------|-----------------|-------|
-| VCC         | 5V              | Module power |
-| GND         | GND             | Common ground |
-| RX          | D3 (SoftwareSerial TX) | Arduino → DF1201S |
-| TX          | D2 (SoftwareSerial RX) | DF1201S → Arduino |
+### Servo (mouth)
+- Servo **signal** → Arduino **D9**
+- Servo **VCC (red)** → **5V**
+- Servo **GND (brown/black)** → **GND**
 
-### Servo → Arduino
-| Servo Pin   | Arduino Pin | Notes |
-|-------------|-------------|-------|
-| Signal      | D9          | PWM signal pin |
-| VCC         | 5–6V ext.   | Separate supply for servo recommended |
-| GND         | GND         | Must connect to Arduino GND |
+### HC-SR04 Ultrasonic Sensor
+- **VCC** → **5V**
+- **GND** → **GND**
+- **Trig** → Arduino **D10**
+- **Echo** → Arduino **D13**
+
+### LED
+- LED **anode (+)** → Arduino **D8** (through **220Ω resistor** to limit current)
+- LED **cathode (–)** → **GND**
+
+### DFPlayer PRO (DF1201S)
+- **RX** (DFPlayer) → Arduino **D3 (TX of SoftwareSerial)**
+- **TX** (DFPlayer) → Arduino **D2 (RX of SoftwareSerial)**
+- **VCC** → **5V**
+- **GND** → **GND**
+- **DACR / DACL** → 3.5 mm AUX jack → external powered speakers or amplifier
+
+---
+
+## Power Notes
+- Servo draws significant current → may need **separate 5V supply** (common ground with Arduino).
+- DFPlayer PRO also powered from **5V**.
+- Keep Arduino USB connected or provide regulated **5V power**.
 
 ---
 
 ## 📂 File Setup
 1. Place your MP3 file on the SD card. Example:   /mp3/0001.mp3
 2. The sketch will call `DF1201S.start()` to play the first track.  
+
+  # Wiring Table — Arduino Uno + DFPlayer Pro + Servo + HC-SR04 + LED
+
+| **Arduino Uno Pin** | **Connection**                        | **Target Device Pin**      |
+|----------------------|---------------------------------------|-----------------------------|
+| D2                  | RX (SoftwareSerial)                   | DFPlayer **TX**            |
+| D3                  | TX (SoftwareSerial)                   | DFPlayer **RX**            |
+| D9                  | Servo control signal                  | Servo **Signal**           |
+| D10                 | Trigger output                        | HC-SR04 **Trig**           |
+| D13                 | Echo input                            | HC-SR04 **Echo**           |
+| D8                  | Digital output (with 220Ω resistor)   | LED **Anode (+)**          |
+| 5V                  | Power supply                          | Servo VCC, HC-SR04 VCC, DFPlayer VCC |
+| GND                 | Common ground                         | Servo GND, HC-SR04 GND, DFPlayer GND, LED Cathode |
+| —                   | Audio output                          | DFPlayer **DACL/DACR → AUX Jack → Powered Speakers** |
+
 
 ---
 
