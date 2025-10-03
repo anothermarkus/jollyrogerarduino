@@ -10,6 +10,11 @@ Uses a helper function to avoid duplicated loops.
 
 #if defined(ARDUINO_AVR_UNO) || defined(ESP8266)
 #include "SoftwareSerial.h"
+
+// Arduino Transmits on Pin 3 Receives on Pin 2
+// DFPlayer RX is wired to Pin 3 (TX -> RX)
+// DFPlayer TX is wired to Pin 2 (RX -> TX)
+// Cross wiring is intentional
 SoftwareSerial DF1201SSerial(2, 3);  //RX TX
 #else
 #define DF1201SSerial Serial1
@@ -187,16 +192,13 @@ void setup() {
   mouth.write(JAW_CLOSED);
   delay(500);
 
-  Serial.begin(115200);
+  Serial.begin(115200); // This declaration occupies pin 0 and 1 for serial communication Serial.println()
 
   pinMode(triggerPin, OUTPUT);
   pinMode(echoPin, INPUT);
 
-#if (defined ESP32)
-  DF1201SSerial.begin(115200, SERIAL_8N1, /*rx=*/D3, /*tx=*/D2);
-#else
   DF1201SSerial.begin(115200);
-#endif
+
   while (!DF1201S.begin(DF1201SSerial)) {
     Serial.println("Init failed, please check the wire connection!");
     delay(1000);
@@ -320,7 +322,7 @@ void loop() {
     delay(4000);
     playYoHoSong();
     DF1201S.pause();
-    DF1201S.setVol(0);
+    DF1201S.setVol(0); // This is a hack as .pause does not work in this scenario
     digitalWrite(LEDPin, LOW); // LED to indiciate, loop is finished
     delay(10000);
   }
