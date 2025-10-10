@@ -1,11 +1,15 @@
 ## DF Player Pro Audio Setup
 
-These are the two MP3 files the code supports.  
-Copy them to the **DF Player Pro** in the following order:
+The code supports two MP3 files. Copy them to the **DF Player Pro** in the **exact order** below:
 
-1. **YoHoTrimmed**
-2. **Dead Men Tell No Tales Sound Effect _ Pirates of the Caribbean WDW**
+### 1. YoHoTrimmed
+- **File name:** `YoHoTrimmed.mp3`
+- Place this file first in the DF Player's internal storage.
+
+### 2. Dead Men Tell No Tales Sound Effect _ Pirates of the Caribbean WDW
+- **File name:** `Dead Men Tell No Tales Sound Effect _ Pirates of the Caribbean WDW.mp3`
+- Place this file second in the DF Player's internal storage.
 
 > **Note:**  
 > The DF Player indexes files in the order they are added to its internal storage.  
-> Make sure to copy them in this exact sequence.
+> Copy them in this sequence to ensure proper playback.
