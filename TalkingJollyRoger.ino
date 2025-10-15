@@ -273,6 +273,11 @@ void playYoHoVerse5() {
   delay(550);
 }
 
+void playYoHoVerse6() {
+playPhrase(yohoMovements, yoHoDelays, sizeof(yohoMovements) / sizeof(int));
+delay(350);
+}
+
 void playYoHoSong() {
   DF1201S.playFileNum(1);
   DF1201S.setPlayTime(0);
@@ -282,6 +287,7 @@ void playYoHoSong() {
   playYoHoVerse3();
   playYoHoVerse4();
   playYoHoVerse5();
+  playYoHoVerse6();
 
   mouth.write(JAW_CLOSED);
   DF1201S.pause();
